@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth Square Capital</title>
+    
+    <!-- Google Fonts: Archivo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #042A2B;
+            --accent-lime: #A2EA0A;
+            --text-light: #F0F4F4;
+            --text-dim: #8E9E9E;
+            --grid-line: rgba(162, 234, 10, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Archivo', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.4;
+        }
+
+        /* --- BACKGROUND GRID FX --- */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 60px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        .nav-links button {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 24px;
+            font-family: 'Archivo', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 20px;
+        }
+
+        .nav-links button:hover {
+            border-color: var(--accent-lime);
+            color: var(--accent-lime);
+        }
+
+        .btn-primary {
+            background: var(--accent-lime) !important;
+            color: var(--bg-dark) !important;
+            border: 1px solid var(--accent-lime) !important;
+            font-weight: 700 !important;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(162, 234, 10, 0.4);
+        }
+
+        /* --- HERO SECTION --- */
+        section.hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 60px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            max-width: 900px;
+            margin-bottom: 30px;
+        }
+
+        h1 span {
+            color: var(--accent-lime);
+        }
+
+        p.hero-sub {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 500px;
+            margin-bottom: 50px;
+            border-left: 2px solid var(--accent-lime);
+            padding-left: 20px;
+        }
+
+        /* --- STATS SQUARES --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-box {
+            padding: 60px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            transition: background 0.3s;
+        }
+
+        .stat-box:hover {
+            background: rgba(162, 234, 10, 0.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-lime);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+        }
+
+        /* --- THESIS --- */
+        section.thesis {
+            padding: 120px 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .thesis-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--text-dim);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 60px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .footer-logo {
+            filter: grayscale(100%);
+            opacity: 0.5;
+            height: 30px;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            section.thesis { grid-template-columns: 1fr; }
+            nav { padding: 20px; }
+            section.hero { padding: 0 20px; }
+            .stat-box { padding: 30px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <nav>
+        <div class="logo-container">
+            <img src="logo.png" alt="Growth Square" class="logo-img">
+            <!-- Optional text if logo doesn't have it clearly visible at small scale -->
+            <!-- <div class="logo-text">Growth Square</div> -->
+        </div>
+        <div class="nav-links">
+            <button>Thesis</button>
+            <button>Portfolio</button>
+            <button class="btn-primary">Pitch Us</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>
+            COMPOUNDING <br>
+            ALPHA IN THE <br>
+            <span>SQUARE</span> ROOT OF <br>
+            CHAOS.
+        </h1>
+        <p class="hero-sub">
+            We back founders building the infrastructure of the next digital epoch. High conviction. Mathematical precision.
+        </p>
+    </section>
+
+    <div class="stats-grid">
+        <div class="stat-box">
+            <div class="stat-number">$150M</div>
+            <div class="stat-label">AUM</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">24</div>
+            <div class="stat-label">PortCo's</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Unicorns</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Horizon</div>
+        </div>
+    </div>
+
+    <section class="thesis">
+        <div class="thesis-title">
+            <h2>The Power Law<br>of Innovation</h2>
+        </div>
+        <div class="thesis-text">
+            <p>We don't chase trends. We calculate vectors. Growth Square Capital operates at the intersection of deep tech, fintech, and decentralized systems.</p>
+            <p>Our capital is patient, but our execution is urgent. We partner with visionaries who understand that true growth isn't linear—it's exponential.</p>
+            <br>
+            <button class="btn-primary" style="padding: 15px 40px; font-size: 1rem;">Read our 2026 Letter</button>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <img src="logo.png" alt="Logo" class="footer-logo">
+            <p style="color: var(--text-dim); margin-top: 10px; font-size: 0.8rem;">© 2026 Growth Square Capital.</p>
+        </div>
+        <div style="text-align: right; color: var(--text-dim);">
+            <p>San Francisco • New York • São Paulo</p>
+        </div>
+    </footer>
+
+</body>
+</html>
